@@ -16,15 +16,19 @@ function App() {
     console.log(name)
     setInput((prev)=>{
         return {...prev,
-            [name]: value
+            [name]: +value    //adding plus converts the string value to a number value, this prevents concatenation of strings when calling the calculate function.
         }
     })
   }
+  let inputvalid=true
+  if(input.duration<=0)
+    inputvalid=false
   return (
     <div>
       <Header></Header>
       <Inputs userInput={input} onChangeInput={handleChange}></Inputs>
-      <Results userInput={input}></Results>
+      {!inputvalid&&<p className="center">Duration should be greater than 0</p>}
+      {inputvalid&&<Results userInput={input}></Results>}
     </div>
   )
 }
